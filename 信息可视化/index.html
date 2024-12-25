@@ -1,0 +1,1048 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>长沙市探索之旅</title>
+    
+    <!-- CDN引入 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    
+    <link href="styles.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- 导航栏 -->
+    <nav class="navbar navbar-expand-lg fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <img src="https://example.com/logo.png" alt="长沙市" height="32">
+                长沙市探索之旅
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item"><a class="nav-link" href="#map-section">城市地图</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#data-section">数据中心</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#tourism-section">旅游攻略</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#about-section">关于长沙</a></li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#chat-section">
+                            <i class="fas fa-comments"></i> AI助手
+                        </a>
+                    </li>
+                </ul>
+                <div class="search-box">
+                    <i class="fas fa-search search-icon"></i>
+                    <input type="text" class="search-input" placeholder="搜索...">
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 主要内容区域 -->
+    <main>
+        <!-- 城市地图部分 -->
+        <section id="map-section" class="content-section hero-section">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title"></h2>
+                </div>
+                <div id="map-container" class="animate-fadeInUp"></div>
+            </div>
+        </section>
+        
+        <!-- 数据中心部分 -->
+        <section id="data-section" class="content-section">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">数据中心</h2>
+                    <div class="section-subtitle">Development data of Changsha City</div>
+                </div>
+                <!-- 添加切换按钮 -->
+                <div class="data-tabs">
+                    <button class="tab-btn active" data-type="population">人口分析</button>
+                    <button class="tab-btn" data-type="economy">经济发展</button>
+                    <button class="tab-btn" data-type="tourism">旅游数据</button>
+                </div>
+                <!-- 图表容器 -->
+                <div class="charts-container">
+                    <div id="population-chart" class="chart-item active"></div>
+                    <div id="economy-chart" class="chart-item"></div>
+                    <div id="tourism-chart" class="chart-item"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 旅游攻略部分 -->
+        <section id="tourism-section" class="content-section">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">旅游攻略</h2>
+                    <div class="section-subtitle">Changsha Exciting Journey</div>
+                </div>
+                
+                <!-- 添加遮罩层 -->
+                <div class="route-overlay"></div>
+
+                <!-- 路线推荐标签页 -->
+                <div class="route-tabs">
+                    <button class="route-tab active" data-days="3">3日精华游</button>
+                    <button class="route-tab" data-days="5">5日深度游</button>
+                    <button class="route-tab" data-days="1">1日速览</button>
+                    <button class="route-tab" data-days="food">美食之旅</button>
+                    <button class="route-tab" data-days="culture">文化之旅</button>
+                </div>
+
+                <!-- 路线内容区域 -->
+                <div class="route-content" id="tourism-content">
+                    <!-- 路线面板 -->
+                    <div class="route-panel" data-days="3">
+                        <button class="close-btn">
+                            <i class="fas fa-times"></i>
+                        </button>
+                        <div class="day-routes">
+                            <div class="day-item">
+                                <h3>Day 1：古城文化游</h3>
+                                <div class="timeline">
+                                    <div class="timeline-item">
+                                        <div class="time">09:00</div>
+                                        <div class="spot">
+                                            <h4>岳麓山 - 爱晚亭</h4>
+                                            <p>建议游览2小时，欣赏古色古香的建筑，感受千年学府文化</p>
+                                            <div class="spot-tips">
+                                                <span><i class="fas fa-ticket-alt"></i> 门票：60元</span>
+                                                <span><i class="fas fa-clock"></i> 建议：2小时</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="timeline-item">
+                                        <div class="time">11:30</div>
+                                        <div class="spot">
+                                            <h4>岳麓书院</h4>
+                                            <p>千年学府，了解湖湘文化的发源地</p>
+                                            <div class="spot-tips">
+                                                <span><i class="fas fa-ticket-alt"></i> 门票：免费</span>
+                                                <span><i class="fas fa-clock"></i> 建议：1.5小时</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="timeline-item">
+                                        <div class="time">14:30</div>
+                                        <div class="spot">
+                                            <h4>橘子洲头</h4>
+                                            <p>观赏湘江风光，打卡毛主席诗词创作地</p>
+                                            <div class="spot-tips">
+                                                <span><i class="fas fa-ticket-alt"></i> 门票：100元</span>
+                                                <span><i class="fas fa-clock"></i> 建议：3小时</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="timeline-item">
+                                        <div class="time">18:00</div>
+                                        <div class="spot">
+                                            <h4>太平街</h4>
+                                            <p>品尝长沙特色小吃，感受市井文化</p>
+                                            <div class="spot-tips">
+                                                <span><i class="fas fa-utensils"></i> 美食推荐：臭豆腐、糖油粑粑</span>
+                                                <span><i class="fas fa-clock"></i> 建议：2小时</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="day-item">
+                                <h3>Day 2：文化探索</h3>
+                                <div class="timeline">
+                                    <div class="timeline-item">
+                                        <div class="time">09:00</div>
+                                        <div class="spot">
+                                            <h4>湖南省博物馆</h4>
+                                            <p>镇馆之宝马王堆汉墓文物，了解三湘文化历史</p>
+                                            <div class="spot-tips">
+                                                <span><i class="fas fa-ticket-alt"></i> 门票：免费（需预约）</span>
+                                                <span><i class="fas fa-clock"></i> 建议：2.5小时</span>
+                                                <span><i class="fas fa-info-circle"></i> 每周一闭馆</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="timeline-item">
+                                        <div class="time">12:00</div>
+                                        <div class="spot">
+                                            <h4>火宫殿</h4>
+                                            <p>百年老字号，品尝正宗湘式小吃</p>
+                                            <div class="spot-tips">
+                                                <span><i class="fas fa-utensils"></i> 人均：60元</span>
+                                                <span><i class="fas fa-clock"></i> 建议：1.5小时</span>
+                                                <span><i class="fas fa-star"></i> 必点：臭豆腐、糖油粑粑</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="timeline-item">
+                                        <div class="time">14:30</div>
+                                        <div class="spot">
+                                            <h4>天心阁</h4>
+                                            <p>登高远眺，俯瞰长沙古城风貌</p>
+                                            <div class="spot-tips">
+                                                <span><i class="fas fa-ticket-alt"></i> 门票：50元</span>
+                                                <span><i class="fas fa-clock"></i> 建议：2小时</span>
+                                                <span><i class="fas fa-camera"></i> 摄影绝佳地</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="timeline-item">
+                                        <div class="time">17:00</div>
+                                        <div class="spot">
+                                            <h4>坡子街</h4>
+                                            <p>体验长沙夜市文化，品尝地道小吃</p>
+                                            <div class="spot-tips">
+                                                <span><i class="fas fa-utensils"></i> 人均：50-100元</span>
+                                                <span><i class="fas fa-clock"></i> 建议：2-3小时</span>
+                                                <span><i class="fas fa-map-marker-alt"></i> 地铁2号线可达</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="day-item">
+                                <h3>Day 3：现代长沙</h3>
+                                <div class="timeline">
+                                    <div class="timeline-item">
+                                        <div class="time">10:00</div>
+                                        <div class="spot">
+                                            <h4>马栏山视频文创园</h4>
+                                            <p>感受新媒体文化产业，打卡网红基地</p>
+                                            <div class="spot-tips">
+                                                <span><i class="fas fa-ticket-alt"></i> 门票：免费</span>
+                                                <span><i class="fas fa-clock"></i> 建议：2小时</span>
+                                                <span><i class="fas fa-camera"></i> 网红打卡地</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="timeline-item">
+                                        <div class="time">13:00</div>
+                                        <div class="spot">
+                                            <h4>茶颜悦色总店</h4>
+                                            <p>打卡网红茶饮，体验新式茶文化</p>
+                                            <div class="spot-tips">
+                                                <span><i class="fas fa-coffee"></i> 人均：30元</span>
+                                                <span><i class="fas fa-clock"></i> 建议：1小时</span>
+                                                <span><i class="fas fa-star"></i> 推荐：幽兰拿铁</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="timeline-item">
+                                        <div class="time">15:00</div>
+                                        <div class="spot">
+                                            <h4>梅溪湖</h4>
+                                            <p>欣赏现代城市规划，湖光山色</p>
+                                            <div class="spot-tips">
+                                                <span><i class="fas fa-ticket-alt"></i> 门票：免费</span>
+                                                <span><i class="fas fa-clock"></i> 建议：2.5小时</span>
+                                                <span><i class="fas fa-subway"></i> 地铁2号线可达</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="timeline-item">
+                                        <div class="time">18:00</div>
+                                        <div class="spot">
+                                            <h4>五一商圈</h4>
+                                            <p>体验长沙夜生活，购物休闲</p>
+                                            <div class="spot-tips">
+                                                <span><i class="fas fa-shopping-bag"></i> 购物天堂</span>
+                                                <span><i class="fas fa-clock"></i> 建议：2-3小时</span>
+                                                <span><i class="fas fa-utensils"></i> 晚餐推荐：解放西路美食街</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- 路线提示 -->
+                        <div class="route-tips">
+                            <h4><i class="fas fa-lightbulb"></i> 贴心提示</h4>
+                            <ul>
+                                <li>建议提前预订热门景点门票，避免排队</li>
+                                <li>岳麓山景区面积较大，请穿着舒适的鞋子</li>
+                                <li>橘子洲建议傍晚前往，可以欣赏夜景</li>
+                                <li>太平街周末人流量大，建议错峰前往</li>
+                            </ul>
+                        </div>
+
+                        <div class="route-info-cards">
+                            <div class="info-card transport-info">
+                                <h4><i class="fas fa-bus"></i> 交通建议</h4>
+                                <div class="transport-options">
+                                    <div class="transport-item">
+                                        <span class="label">地铁</span>
+                                        <span class="detail">推荐购买长沙地铁一日/三日票</span>
+                                    </div>
+                                    <div class="transport-item">
+                                        <span class="label">公交</span>
+                                        <span class="detail">可使用长沙智慧公交APP查询实时班次</span>
+                                    </div>
+                                    <div class="transport-item">
+                                        <span class="label">打车</span>
+                                        <span class="detail">高峰期建议提前预约网约车</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="info-card weather-info">
+                                <h4><i class="fas fa-cloud-sun"></i> 游玩建议</h4>
+                                <ul class="tips-list">
+                                    <li>准备遮阳伞，长沙夏季炎热</li>
+                                    <li>建议携带雨具，天气多变</li>
+                                    <li>准备舒适的步行鞋</li>
+                                    <li>景点门票建议提前网上预订</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 5日深度游 -->
+                    <div class="route-panel" data-days="5">
+                        <div class="day-routes">
+                            <div class="day-item">
+                                <h3>Day 1：古城文化游</h3>
+                                <div class="timeline">
+                                    <!-- 与3日游第一天相同的行程 -->
+                                </div>
+                            </div>
+
+                            <div class="day-item">
+                                <h3>Day 2：文博艺术游</h3>
+                                <div class="timeline">
+                                    <div class="timeline-item">
+                                        <div class="time">09:30</div>
+                                        <div class="spot">
+                                            <h4>湖南省博物馆</h4>
+                                            <p>参观马王堆汉墓文物，了解湖南历史文化</p>
+                                            <div class="spot-tips">
+                                                <span><i class="fas fa-ticket-alt"></i> 门票：免费（需要预约）</span>
+                                                <span><i class="fas fa-clock"></i> 建议：3小时</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="timeline-item">
+                                        <div class="time">14:00</div>
+                                        <div class="spot">
+                                            <h4>湖南大学</h4>
+                                            <p>参观百年学府，感受深厚的人文底蕴</p>
+                                            <div class="spot-tips">
+                                                <span><i class="fas fa-info-circle"></i> 校园开放时间：8:00-17:00</span>
+                                                <span><i class="fas fa-clock"></i> 建议：2小时</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="timeline-item">
+                                        <div class="time">16:30</div>
+                                        <div class="spot">
+                                            <h4>湖南省图书馆</h4>
+                                            <p>参观新馆建筑，体验文化长沙魅力</p>
+                                            <div class="spot-tips">
+                                                <span><i class="fas fa-ticket-alt"></i> 门票：免费</span>
+                                                <span><i class="fas fa-clock"></i> 建议：1.5小时</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="day-item">
+                                <h3>Day 3：现代都市游</h3>
+                                <div class="timeline">
+                                    <div class="timeline-item">
+                                        <div class="time">10:00</div>
+                                        <div class="spot">
+                                            <h4>IFS国金中心</h4>
+                                            <p>打卡网红大熊猫，体验现代都市生活</p>
+                                            <div class="spot-tips">
+                                                <span><i class="fas fa-shopping-bag"></i> 购物中心</span>
+                                                <span><i class="fas fa-clock"></i> 建议：3小时</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="timeline-item">
+                                        <div class="time">14:00</div>
+                                        <div class="spot">
+                                            <h4>茶颜悦色</h4>
+                                            <p>品尝网红茶饮，体验本土茶文化</p>
+                                            <div class="spot-tips">
+                                                <span><i class="fas fa-coffee"></i> 人均：30元</span>
+                                                <span><i class="fas fa-clock"></i> 建议：1小时</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="timeline-item">
+                                        <div class="time">16:00</div>
+                                        <div class="spot">
+                                            <h4>五一商圈</h4>
+                                            <p>体验长沙最繁华的商业区</p>
+                                            <div class="spot-tips">
+                                                <span><i class="fas fa-map-marker-alt"></i> 地铁1号线可达</span>
+                                                <span><i class="fas fa-clock"></i> 建议：3小时</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- 文化之旅路线面板 -->
+                            <div class="route-panel" data-days="culture">
+                                <button class="close-btn">
+                                    <i class="fas fa-times"></i>
+                                </button>
+                                <div class="day-routes">
+                                    <div class="day-item">
+                                        <h3>湖湘文化探索</h3>
+                                        <div class="timeline">
+                                            <div class="timeline-item">
+                                                <div class="time">09:00</div>
+                                                <div class="spot">
+                                                    <h4>岳麓书院</h4>
+                                                    <p>千年学府，感受湖湘文化精髓，欣赏古建筑群</p>
+                                                    <div class="spot-tips">
+                                                        <span><i class="fas fa-ticket-alt"></i> 门票：免费</span>
+                                                        <span><i class="fas fa-clock"></i> 建议：2小时</span>
+                                                        <span><i class="fas fa-book"></i> 可预约讲解服务</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="timeline-item">
+                                                <div class="time">11:30</div>
+                                                <div class="spot">
+                                                    <h4>湖南省博物馆</h4>
+                                                    <p>参观马王堆汉墓文物，了解湖南历史文化</p>
+                                                    <div class="spot-tips">
+                                                        <span><i class="fas fa-ticket-alt"></i> 门票：免费（需预约）</span>
+                                                        <span><i class="fas fa-clock"></i> 建议：2.5小时</span>
+                                                        <span><i class="fas fa-camera"></i> 部分展区禁止拍照</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="timeline-item">
+                                                <div class="time">14:30</div>
+                                                <div class="spot">
+                                                    <h4>湖南第一师范</h4>
+                                                    <p>毛泽东等名人求学之地，红色文化教育基地</p>
+                                                    <div class="spot-tips">
+                                                        <span><i class="fas fa-ticket-alt"></i> 门票：免费</span>
+                                                        <span><i class="fas fa-clock"></i> 建议：1.5小时</span>
+                                                        <span><i class="fas fa-info-circle"></i> 需提前预约</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="timeline-item">
+                                                <div class="time">16:30</div>
+                                                <div class="spot">
+                                                    <h4>长沙简牍博物馆</h4>
+                                                    <p>展示三国时期珍贵简牍文物，了解古代长沙历史</p>
+                                                    <div class="spot-tips">
+                                                        <span><i class="fas fa-ticket-alt"></i> 门票：免费</span>
+                                                        <span><i class="fas fa-clock"></i> 建议：2小时</span>
+                                                        <span><i class="fas fa-info-circle"></i> 周一闭馆</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="timeline-item">
+                                                <div class="time">19:00</div>
+                                                <div class="spot">
+                                                    <h4>湖南大剧院</h4>
+                                                    <p>欣赏湘剧表演或现代舞台剧</p>
+                                                    <div class="spot-tips">
+                                                        <span><i class="fas fa-ticket-alt"></i> 门票：80-380元不等</span>
+                                                        <span><i class="fas fa-clock"></i> 建议：2-3小时</span>
+                                                        <span><i class="fas fa-info-circle"></i> 需提前订票</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="day-item">
+                                        <h3>非遗文化体验</h3>
+                                        <div class="timeline">
+                                            <div class="timeline-item">
+                                                <div class="time">10:00</div>
+                                                <div class="spot">
+                                                    <h4>湖南省非物质文化遗产馆</h4>
+                                                    <p>体验湘绣、制陶等传统工艺</p>
+                                                    <div class="spot-tips">
+                                                        <span><i class="fas fa-ticket-alt"></i> 门票：免费</span>
+                                                        <span><i class="fas fa-clock"></i> 建议：2.5小时</span>
+                                                        <span><i class="fas fa-hands"></i> 可预约工艺体验</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="timeline-item">
+                                                <div class="time">13:30</div>
+                                                <div class="spot">
+                                                    <h4>铜官窑古镇</h4>
+                                                    <p>了解千年陶瓷文化，体验制陶工艺</p>
+                                                    <div class="spot-tips">
+                                                        <span><i class="fas fa-ticket-alt"></i> 门票：60元</span>
+                                                        <span><i class="fas fa-clock"></i> 建议：3小时</span>
+                                                        <span><i class="fas fa-palette"></i> 可体验制陶</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="timeline-item">
+                                                <div class="time">17:00</div>
+                                                <div class="spot">
+                                                    <h4>湖南戏曲演艺中心</h4>
+                                                    <p>观看传统湘剧表演</p>
+                                                    <div class="spot-tips">
+                                                        <span><i class="fas fa-ticket-alt"></i> 门票：50-180元</span>
+                                                        <span><i class="fas fa-clock"></i> 建议：2小时</span>
+                                                        <span><i class="fas fa-theater-masks"></i> 可体验戏曲化妆</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="route-tips">
+                                        <h4><i class="fas fa-lightbulb"></i> 文化体验贴士</h4>
+                                        <ul>
+                                            <li>建议提前了解相关历史背景，加深游览体验</li>
+                                            <li>省博物馆和简牍博物馆需要提前在官网预约</li>
+                                            <li>体验活动多需提前预定，建议提前3天联系</li>
+                                            <li>观看演出建议提前半小时到场</li>
+                                            <li>部分场所禁止拍照，请遵守相关规定</li>
+                                        </ul>
+                                    </div>
+
+                                    <div class="route-info-cards">
+                                        <div class="info-card culture-activities">
+                                            <h4><i class="fas fa-calendar-alt"></i> 文化活动推荐</h4>
+                                            <div class="activity-list">
+                                                <div class="activity-item">
+                                                    <h5>湘绣体验工坊</h5>
+                                                    <p>地点：湖南省非遗馆</p>
+                                                    <p>时间：每周二、四、六</p>
+                                                    <p>费用：88元/人</p>
+                                                </div>
+                                                <div class="activity-item">
+                                                    <h5>茶艺文化体验</h5>
+                                                    <p>地点：岳麓书院茶室</p>
+                                                    <p>时间：每日10:00-16:00</p>
+                                                    <p>费用：128元/人</p>
+                                                </div>
+                                                <div class="activity-item">
+                                                    <h5>戏曲表演体验</h5>
+                                                    <p>地点：湖南戏曲中心</p>
+                                                    <p>时间：需提前预约</p>
+                                                    <p>费用：168元/人</p>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="info-card transport-info">
+                                            <h4><i class="fas fa-bus"></i> 交通建议</h4>
+                                            <div class="transport-options">
+                                                <div class="transport-item">
+                                                    <span class="label">地铁</span>
+                                                    <span class="detail">2号线岳麓书院站、4号线省博物馆站</span>
+                                                </div>
+                                                <div class="transport-item">
+                                                    <span class="label">观光巴士</span>
+                                                    <span class="detail">可乘坐城市观光巴士文化线路</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- 5日游第4-5天行程 -->
+                            <div class="day-item">
+                                <h3>Day 4：休闲娱乐游</h3>
+                                <div class="timeline">
+                                    <div class="timeline-item">
+                                        <div class="time">10:00</div>
+                                        <div class="spot">
+                                            <h4>世界之窗</h4>
+                                            <p>一站式体验世界著名景观的微缩景点</p>
+                                            <div class="spot-tips">
+                                                <span><i class="fas fa-ticket-alt"></i> 门票：180元</span>
+                                                <span><i class="fas fa-clock"></i> 建议：4小时</span>
+                                                <span><i class="fas fa-utensils"></i> 园区内有多家特色餐厅</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="timeline-item">
+                                        <div class="time">15:00</div>
+                                        <div class="spot">
+                                            <h4>马栏山视频文创园</h4>
+                                            <p>网红打卡地，体验新媒体文化产业</p>
+                                            <div class="spot-tips">
+                                                <span><i class="fas fa-ticket-alt"></i> 门票：免费</span>
+                                                <span><i class="fas fa-clock"></i> 建议：2.5小时</span>
+                                                <span><i class="fas fa-camera"></i> 适合拍照打卡</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="timeline-item">
+                                        <div class="time">18:00</div>
+                                        <div class="spot">
+                                            <h4>五一商圈</h4>
+                                            <p>长沙最繁华的商业区，体验夜生活</p>
+                                            <div class="spot-tips">
+                                                <span><i class="fas fa-shopping-bag"></i> 购物天堂</span>
+                                                <span><i class="fas fa-clock"></i> 建议：3小时</span>
+                                                <span><i class="fas fa-subway"></i> 地铁1号线直达</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="day-item">
+                                <h3>Day 5：生态休闲游</h3>
+                                <div class="timeline">
+                                    <div class="timeline-item">
+                                        <div class="time">09:30</div>
+                                        <div class="spot">
+                                            <h4>靖港古镇</h4>
+                                            <p>千年古镇，感受湘江文化</p>
+                                            <div class="spot-tips">
+                                                <span><i class="fas fa-ticket-alt"></i> 门票：60元</span>
+                                                <span><i class="fas fa-clock"></i> 建议：3小时</span>
+                                                <span><i class="fas fa-utensils"></i> 推荐：古镇小吃一条街</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="timeline-item">
+                                        <div class="time">14:00</div>
+                                        <div class="spot">
+                                            <h4>长沙生态动物园</h4>
+                                            <p>与珍稀动物亲密接触</p>
+                                            <div class="spot-tips">
+                                                <span><i class="fas fa-ticket-alt"></i> 门票：120元</span>
+                                                <span><i class="fas fa-clock"></i> 建议：3小时</span>
+                                                <span><i class="fas fa-info-circle"></i> 建议避开周末高峰</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="timeline-item">
+                                        <div class="time">17:30</div>
+                                        <div class="spot">
+                                            <h4>梅溪湖</h4>
+                                            <p>欣赏湖光山色，体验现代城市生态</p>
+                                            <div class="spot-tips">
+                                                <span><i class="fas fa-ticket-alt"></i> 门票：免费</span>
+                                                <span><i class="fas fa-clock"></i> 建议：2小时</span>
+                                                <span><i class="fas fa-camera"></i> 日落时分最佳</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 1日速览 -->
+                    <div class="route-panel" data-days="1">
+                        <div class="day-routes">
+                            <div class="day-item">
+                                <h3>经典一日游</h3>
+                                <div class="timeline">
+                                    <div class="timeline-item">
+                                        <div class="time">09:00</div>
+                                        <div class="spot">
+                                            <h4>橘子洲头</h4>
+                                            <p>观赏湘江风光，打卡毛主席诗词创作地</p>
+                                            <div class="spot-tips">
+                                                <span><i class="fas fa-ticket-alt"></i> 门票：100元</span>
+                                                <span><i class="fas fa-clock"></i> 建议：2小时</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="timeline-item">
+                                        <div class="time">11:30</div>
+                                        <div class="spot">
+                                            <h4>黄兴路步行街</h4>
+                                            <p>品尝地道小吃，感受市井文化</p>
+                                            <div class="spot-tips">
+                                                <span><i class="fas fa-utensils"></i> 人均：50元</span>
+                                                <span><i class="fas fa-clock"></i> 建议：2小时</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="timeline-item">
+                                        <div class="time">14:30</div>
+                                        <div class="spot">
+                                            <h4>省博物馆</h4>
+                                            <p>必看马王堆文物展</p>
+                                            <div class="spot-tips">
+                                                <span><i class="fas fa-ticket-alt"></i> 门票：免费（需预约）</span>
+                                                <span><i class="fas fa-clock"></i> 建议：2.5小时</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="timeline-item">
+                                        <div class="time">17:30</div>
+                                        <div class="spot">
+                                            <h4>坡子街</h4>
+                                            <p>体验长沙夜市文化</p>
+                                            <div class="spot-tips">
+                                                <span><i class="fas fa-utensils"></i> 特色：臭豆腐、糖油粑粑</span>
+                                                <span><i class="fas fa-clock"></i> 建议：2小时</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 美食之旅 -->
+                    <div class="route-panel" data-days="food">
+                        <div class="day-routes">
+                            <div class="day-item">
+                                <h3>长沙美食地图</h3>
+                                <div class="timeline">
+                                    <div class="timeline-item">
+                                        <div class="time">早餐</div>
+                                        <div class="spot">
+                                            <h4>文和友老长沙龙虾馆</h4>
+                                            <p>必点：臭豆腐、糖油粑粑、长沙小炒肉</p>
+                                            <div class="spot-tips">
+                                                <span><i class="fas fa-utensils"></i> 人均：80-100元</span>
+                                                <span><i class="fas fa-map-marker-alt"></i> 地址：太平街</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="timeline-item">
+                                        <div class="time">午餐</div>
+                                        <div class="spot">
+                                            <h4>火宫殿</h4>
+                                            <p>必点：剁椒鱼头、口味虾、臭豆腐</p>
+                                            <div class="spot-tips">
+                                                <span><i class="fas fa-utensils"></i> 人均：60-80元</span>
+                                                <span><i class="fas fa-map-marker-alt"></i> 地址：坡子街</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="timeline-item">
+                                        <div class="time">下午茶</div>
+                                        <div class="spot">
+                                            <h4>茶颜悦色</h4>
+                                            <p>必点：幽兰拿铁、茯苓奶盖</p>
+                                            <div class="spot-tips">
+                                                <span><i class="fas fa-coffee"></i> 人均：30元</span>
+                                                <span><i class="fas fa-map-marker-alt"></i> 地址：五一广场店</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="timeline-item">
+                                        <div class="time">晚餐</div>
+                                        <div class="spot">
+                                            <h4>坡子街夜市</h4>
+                                            <p>必尝：臭豆腐、糖油粑粑、烤冷面</p>
+                                            <div class="spot-tips">
+                                                <span><i class="fas fa-utensils"></i> 人均：50元</span>
+                                                <span><i class="fas fa-clock"></i> 营业时间：17:00-次日2:00</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 文化之旅 -->
+                    <div class="route-panel" data-days="culture">
+                        <button class="close-btn">
+                            <i class="fas fa-times"></i>
+                        </button>
+                        <div class="day-routes">
+                            <div class="day-item">
+                                <h3>湖湘文化探索</h3>
+                                <div class="timeline">
+                                    <div class="timeline-item">
+                                        <div class="time">09:00</div>
+                                        <div class="spot">
+                                            <h4>岳麓书院</h4>
+                                            <p>千年学府，感受湖湘文化精髓，欣赏古建筑群</p>
+                                            <div class="spot-tips">
+                                                <span><i class="fas fa-ticket-alt"></i> 门票：免费</span>
+                                                <span><i class="fas fa-clock"></i> 建议：2小时</span>
+                                                <span><i class="fas fa-book"></i> 可预约讲解服务</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="timeline-item">
+                                        <div class="time">11:30</div>
+                                        <div class="spot">
+                                            <h4>湖南省博物馆</h4>
+                                            <p>参观马王堆汉墓文物，了解湖南历史文化</p>
+                                            <div class="spot-tips">
+                                                <span><i class="fas fa-ticket-alt"></i> 门票：免费（需预约）</span>
+                                                <span><i class="fas fa-clock"></i> 建议：2.5小时</span>
+                                                <span><i class="fas fa-camera"></i> 部分展区禁止拍照</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="timeline-item">
+                                        <div class="time">14:30</div>
+                                        <div class="spot">
+                                            <h4>湖南第一师范</h4>
+                                            <p>毛泽东等名人求学之地，红色文化教育基地</p>
+                                            <div class="spot-tips">
+                                                <span><i class="fas fa-ticket-alt"></i> 门票：免费</span>
+                                                <span><i class="fas fa-clock"></i> 建议：1.5小时</span>
+                                                <span><i class="fas fa-info-circle"></i> 需提前预约</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="timeline-item">
+                                        <div class="time">16:30</div>
+                                        <div class="spot">
+                                            <h4>长沙简牍博物馆</h4>
+                                            <p>展示三国时期珍贵简牍文物，了解古代长沙历史</p>
+                                            <div class="spot-tips">
+                                                <span><i class="fas fa-ticket-alt"></i> 门票：免费</span>
+                                                <span><i class="fas fa-clock"></i> 建议：2小时</span>
+                                                <span><i class="fas fa-info-circle"></i> 周一闭馆</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="timeline-item">
+                                        <div class="time">19:00</div>
+                                        <div class="spot">
+                                            <h4>湖南大剧院</h4>
+                                            <p>欣赏湘剧表演或现代舞台剧</p>
+                                            <div class="spot-tips">
+                                                <span><i class="fas fa-ticket-alt"></i> 门票：80-380元不等</span>
+                                                <span><i class="fas fa-clock"></i> 建议：2-3小时</span>
+                                                <span><i class="fas fa-info-circle"></i> 需提前订票</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="day-item">
+                                <h3>非遗文化体验</h3>
+                                <div class="timeline">
+                                    <div class="timeline-item">
+                                        <div class="time">10:00</div>
+                                        <div class="spot">
+                                            <h4>湖南省非物质文化遗产馆</h4>
+                                            <p>体验湘绣、制陶等传统工艺</p>
+                                            <div class="spot-tips">
+                                                <span><i class="fas fa-ticket-alt"></i> 门票：免费</span>
+                                                <span><i class="fas fa-clock"></i> 建议：2.5小时</span>
+                                                <span><i class="fas fa-hands"></i> 可预约工艺体验</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="timeline-item">
+                                        <div class="time">13:30</div>
+                                        <div class="spot">
+                                            <h4>铜官窑古镇</h4>
+                                            <p>了解千年陶瓷文化，体验制陶工艺</p>
+                                            <div class="spot-tips">
+                                                <span><i class="fas fa-ticket-alt"></i> 门票：60元</span>
+                                                <span><i class="fas fa-clock"></i> 建议：3小时</span>
+                                                <span><i class="fas fa-palette"></i> 可体验制陶</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="timeline-item">
+                                        <div class="time">17:00</div>
+                                        <div class="spot">
+                                            <h4>湖南戏曲演艺中心</h4>
+                                            <p>观看传统湘剧表演</p>
+                                            <div class="spot-tips">
+                                                <span><i class="fas fa-ticket-alt"></i> 门票：50-180元</span>
+                                                <span><i class="fas fa-clock"></i> 建议：2小时</span>
+                                                <span><i class="fas fa-theater-masks"></i> 可体验戏曲化妆</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="route-tips">
+                                <h4><i class="fas fa-lightbulb"></i> 文化体验贴士</h4>
+                                <ul>
+                                    <li>建议提前了解相关历史背景，加深游览体验</li>
+                                    <li>省博物馆和简牍博物馆需要提前在官网预约</li>
+                                    <li>体验活动多需提前预定，建议提前3天联系</li>
+                                    <li>观看演出建议提前半小时到场</li>
+                                    <li>部分场所禁止拍照，请遵守相关规定</li>
+                                </ul>
+                            </div>
+
+                            <div class="route-info-cards">
+                                <div class="info-card culture-activities">
+                                    <h4><i class="fas fa-calendar-alt"></i> 文化活动推荐</h4>
+                                    <div class="activity-list">
+                                        <div class="activity-item">
+                                            <h5>湘绣体验工坊</h5>
+                                            <p>地点：湖南省非遗馆</p>
+                                            <p>时间：每周二、四、六</p>
+                                            <p>费用：88元/人</p>
+                                        </div>
+                                        <div class="activity-item">
+                                            <h5>茶艺文化体验</h5>
+                                            <p>地点：岳麓书院茶室</p>
+                                            <p>时间：每日10:00-16:00</p>
+                                            <p>费用：128元/人</p>
+                                        </div>
+                                        <div class="activity-item">
+                                            <h5>戏曲表演体验</h5>
+                                            <p>地点：湖南戏曲中心</p>
+                                            <p>时间：需提前预约</p>
+                                            <p>费用：168元/人</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="info-card transport-info">
+                                    <h4><i class="fas fa-bus"></i> 交通建议</h4>
+                                    <div class="transport-options">
+                                        <div class="transport-item">
+                                            <span class="label">地铁</span>
+                                            <span class="detail">2号线岳麓书院站、4号线省博物馆站</span>
+                                        </div>
+                                        <div class="transport-item">
+                                            <span class="label">观光巴士</span>
+                                            <span class="detail">可乘坐城市观光巴士文化线路</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 关于长沙部分 -->
+        <section id="about-section" class="content-section">
+            <div class="section-header">
+                <h2 class="section-title">关于长沙</h2>
+            </div>
+            <div class="about-content">
+                <div class="about-text">
+                    <h3>城市简介</h3>
+                    <p>长沙，湖南省省会，国家历史文化名城，有着三千多年的建城史...</p>
+                </div>
+                <div class="city-stats">
+                    <h3>城市数据</h3>
+                    <!-- 城市统计数据 -->
+                </div>
+            </div>
+        </section>
+
+        <!-- AI对话部分 -->
+        <section id="chat-section" class="content-section">
+            <div class="section-header">
+                <h2 class="section-title">智能问答</h2>
+            </div>
+            <div class="chat-container">
+                <div id="ai-chat">
+                    <div class="chat-header">
+                        <h3>AI智能助手</h3>
+                    </div>
+                    <div class="chat-messages"></div>
+                    <div class="chat-input"></div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- 页脚部分 -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <!-- 左侧Logo和简介 -->
+                <div class="footer-brand">
+                    <h3>长沙市探索之旅</h3>
+                    <p>发现长沙之美，感受历史文化魅力</p>
+                </div>
+
+                <!-- 中间链接 -->
+                <div class="footer-links">
+                    <div class="link-group">
+                        <h4>快速链接</h4>
+                        <ul>
+                            <li><a href="#map-section">城市地图</a></li>
+                            <li><a href="#data-section">数据中心</a></li>
+                            <li><a href="#tourism-section">旅游攻略</a></li>
+                            <li><a href="#about-section">关于长沙</a></li>
+                        </ul>
+                    </div>
+                    <div class="link-group">
+                        <h4>联系方式</h4>
+                        <ul>
+                            <li><i class="fas fa-phone"></i> 0731-12345678</li>
+                            <li><i class="fas fa-envelope"></i> info@changsha.gov.cn</li>
+                            <li><i class="fas fa-map-marker-alt"></i> 湖南省长沙市</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- 右侧社交媒体 -->
+                <div class="footer-social">
+                    <h4>关注我们</h4>
+                    <div class="social-links">
+                        <!-- 微信公众号 -->
+                        <a href="javascript:void(0)" class="social-link weixin" id="weixinLink">
+                            <i class="fab fa-weixin"></i>
+                            <span class="tooltip">官方微信</span>
+                        </a>
+                        <!-- 微博 -->
+                        <a href="https://weibo.com/newlogin?tabtype=weibo&gid=102803&openLoginLayer=0&url=" target="_blank" class="social-link weibo">
+                            <i class="fab fa-weibo"></i>
+                            <span class="tooltip">官方微博</span>
+                        </a>
+                        <!-- 抖音 -->
+                        <a href="#" class="social-link douyin">
+                            <i class="fab fa-tiktok"></i>
+                            <span class="tooltip">官方抖音</span>
+                        </a>
+                        <!-- 哔哩哔哩 -->
+                        <a href="https://www.bilibili.com/" target="_blank" class="social-link bilibili">
+                            <i class="fab fa-bilibili"></i>
+                            <span class="tooltip">哔哩哔哩</span>
+                        </a>
+                    </div>
+                    <!-- 微信二维码 -->
+                    <div class="qrcode" id="weixinQR">
+                        <img src="https://example.com/qrcode.png" alt="微信公众号二维码">
+                        <p>扫码关注公众号</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 版权信息 -->
+            <div class="footer-bottom">
+                <p>&copy; 2024 长沙市文化旅游局. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript CDN -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- 自定义脚本 -->
+    <script src="map.js"></script>
+    <script src="charts.js"></script>
+    <script src="chat.js"></script>
+    <script src="social.js"></script>
+</body>
+</html> 
